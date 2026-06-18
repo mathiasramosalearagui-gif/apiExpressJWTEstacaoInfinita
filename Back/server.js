@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors"
 import connectDB from "./config/db.js"
+import authRoutes from "./routes/authRoutes.js";
         
 dotenv.config();
         
@@ -15,6 +16,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
     res.json({ message: "API is enabled"})
 });
+
+app.use("/auth", authRoutes)
 
 const startServer = async () => {
     try {
