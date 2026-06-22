@@ -36,8 +36,11 @@ const ProductSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true
+        },
+        main: {
+            type: Boolean,
+            required: true
         }
-        
     },
     {
         collection: "products",

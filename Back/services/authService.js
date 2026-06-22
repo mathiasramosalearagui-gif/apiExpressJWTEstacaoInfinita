@@ -64,14 +64,14 @@ const login = async (data) => {
         throw new Error("The email address or password are incorrect.")
     }
 
-    const token = await jwt.sign(
+    const token = jwt.sign(
         {
             _id: user._id,
             role: user.role
         },
         process.env.JWT_SECRET,
         {
-            expireIn: "1d"
+            expiresIn: "1d"
         }
     )
 
