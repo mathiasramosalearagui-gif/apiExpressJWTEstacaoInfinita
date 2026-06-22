@@ -9,6 +9,16 @@ const featureProducts = async (req, res) => {
     return products
 }
 
+const listProducts = async (req, res) => {
+    const allProducts = await Products.find({ available: true })
+    if (!allProducts) {
+        throw new Error("Not found the products.")
+    }
+
+    return allProducts
+}
+
 export default {
-    featureProducts
+    featureProducts,
+    listProducts
 }

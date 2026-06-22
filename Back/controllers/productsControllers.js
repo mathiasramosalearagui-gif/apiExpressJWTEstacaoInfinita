@@ -14,6 +14,21 @@ const featureProducts = async (req, res, next) => {
     }
 }
 
+const listProducts = async (req, res, next) => {
+    try {
+        const allProducts = await productServices.listProducts()
+        res.json(
+            {
+                message: "The all products:",
+                allProducts
+            }
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
-    featureProducts
+    featureProducts,
+    listProducts
 }
