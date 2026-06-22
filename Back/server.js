@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors"
 import connectDB from "./config/db.js"
 import authRoutes from "./routes/authRoutes.js";
+import productRoutes from "./routes/productRoutes.js"
         
 dotenv.config();
         
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes)
+app.use("/product", productRoutes)
 
 const startServer = async () => {
     try {
