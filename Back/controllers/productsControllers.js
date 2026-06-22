@@ -28,7 +28,22 @@ const listProducts = async (req, res, next) => {
     }
 }
 
+const filterProducts = async (req, res, next) => {
+    try {
+        const product = await productServices.filterProducts(req.query.category)
+        res.json(
+            {
+                message: "All products this category:",
+                product
+            }
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
     featureProducts,
-    listProducts
+    listProducts,
+    filterProducts
 }
