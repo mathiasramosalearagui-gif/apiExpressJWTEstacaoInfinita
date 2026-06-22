@@ -3,6 +3,7 @@ import express from "express"
 
 const routes = express.Router()
 
-routes.get("/products/featured", productsControllers.featureProducts)
+routes.get("/featured", productsControllers.featureProducts)
+routes.get("/list", productsControllers.listProducts)
 
 export default routes
