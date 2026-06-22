@@ -1,6 +1,6 @@
 import Products from "../models/Products.js"
 
-const featureProducts = async (req, res) => {
+const featureProducts = async () => {
     const products = await Products.find({ main: true })
     if (!products) {
         throw new Error("Not found the main products.")
@@ -9,7 +9,7 @@ const featureProducts = async (req, res) => {
     return products
 }
 
-const listProducts = async (req, res) => {
+const listProducts = async () => {
     const allProducts = await Products.find({ available: true })
     if (!allProducts) {
         throw new Error("Not found the products.")
@@ -18,7 +18,17 @@ const listProducts = async (req, res) => {
     return allProducts
 }
 
+const filterProducts = async (filter) => {
+    const products = await Products.find({ category: filter })
+    if (!products) {
+        throw new Error("Not found products with this filter.")
+    }
+
+    return products
+}
+
 export default {
     featureProducts,
-    listProducts
+    listProducts,
+    filterProducts
 }
