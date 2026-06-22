@@ -1,11 +1,11 @@
 import express from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import cors from "cors"
 import connectDB from "./config/db.js"
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js"
-        
+import userRoutes from "./routes/userRoutes.js"
+
 dotenv.config();
         
 const app = express();
@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", authRoutes)
 app.use("/product", productRoutes)
+app.use("/users", userRoutes)
 
 const startServer = async () => {
     try {

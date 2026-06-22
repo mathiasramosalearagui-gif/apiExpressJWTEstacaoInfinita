@@ -1,15 +1,16 @@
-import User from "../models/User";
+import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
 const authenticate = async (req, res, next) => {
     try {
-        const authorization = req.header.authorization
+        const authorization = req.headers.authorization
+        console.log(authorization)
         if (!authorization) {
-            throw res.ststus(401).json({ message: "The token is required."})
+            throw res.status(401).json({ message: "The token is required."})
         }
 
         const parts = authorization.split(" ");
-        if (parts !== 2) {
+        if (parts.length !== 2) {
             throw res.status(401).json({ message: "The token is incorreted."})
         }
 
@@ -37,3 +38,5 @@ const authenticate = async (req, res, next) => {
         next(error)
     }
 }
+
+export default authenticate
