@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 const authenticate = async (req, res, next) => {
     try {
         const authorization = req.headers.authorization
-        console.log(authorization)
+        
         if (!authorization) {
             throw res.status(401).json({ message: "The token is required."})
         }
