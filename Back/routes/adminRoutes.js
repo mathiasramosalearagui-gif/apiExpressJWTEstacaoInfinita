@@ -6,5 +6,8 @@ const router = express.Router()
 
 router.get("/users", authMiddlewares, adminControllers.listAllUsers)
 router.get("/relatory", authMiddlewares, adminControllers.relatory)
+router.get("/products", authMiddlewares, adminControllers.listProducts)
+router.post("/products/new", authMiddlewares, adminControllers.createProduct)
+router.put("/products/:product", authMiddlewares, adminControllers.updateProduct)
 
 export default router

@@ -26,7 +26,50 @@ const relatory = async (req, res, next) => {
     }
 }
 
+const listProducts = async (req, res, next) => {
+    try {
+        const products = await adminServices.listProducts()
+        res.json(
+            {
+                message: "The products:",
+                products
+            }
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
+const createProduct = async (req, res, next) => {
+    try {
+        const product = await adminServices.createProduct(req.body)
+        res.json({
+            message: "Product created successfully:",
+            product
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const updateProduct = async (req, res, next) => {
+    try {
+        const information = await adminServices.updateProduct(req.params.product, req.body)
+        res.json(
+            {
+                message: "Product updated successfully:",
+                information
+            }
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
     listAllUsers,
-    relatory
+    relatory,
+    listProducts,
+    createProduct,
+    updateProduct
 }

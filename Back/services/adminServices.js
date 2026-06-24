@@ -58,7 +58,65 @@ const relatory = async () => {
     }
 }
 
+const listProducts = async () => {
+    const productActive = await Products.find({ available: true })
+    if (!productActive)
+        throw new Error("Not find products actives.")
+
+    const productUnactive = await Products.find({ available: false })
+    if (!productUnactive) {
+        throw new Error("Dont find products unactives.")
+    }
+
+    const actives = productActive;
+    const unactives = productUnactive;
+
+    return {
+        actives,
+        unactives
+    }
+}
+
+const createProduct = async (data) => {
+    const { nameOfProduct, priceOfProduct, amount, description, available, category, observations, main } = data
+    if (!nameOfProduct || !priceOfProduct || !amount || !description || !available || !category) {
+        throw new Error("The name, price, amount, description, available and category are must")
+    }
+
+    return Products.create(
+        {
+            nameOfProduct,
+            priceOfProduct,
+            amount,
+            description,
+            available,
+            category,
+            observations,
+            main
+        }
+    )
+}
+
+const updateProduct = async (idProduct, data) => {
+    const verifyProduct = await Products.findById(idProduct)
+    if (!verifyProduct) {
+        throw new Error("Not find this product.")
+    }
+
+    delete data.available
+
+    const updatedProduct = await Products.findByIdAndUpdate(idProduct, data)
+    if (!updatedProduct) {
+        throw new Error("Not is possibled updated this product.")
+    }
+    
+    return updatedProduct
+}
+
 export default {
     listAllUsers,
-    relatory
+    relatory,
+    listProducts,
+    createProduct,
+    updateProduct
 }
