@@ -25,7 +25,17 @@ const updateMe = async (req, res, next) => {
     }
 }
 
+const historyMe = async (req, res, next) => {
+    try {
+        const historyUser = await userService.historyMe(req.user._id)
+        res.json(historyUser)
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
     getMe,
-    updateMe
+    updateMe,
+    historyMe
 }

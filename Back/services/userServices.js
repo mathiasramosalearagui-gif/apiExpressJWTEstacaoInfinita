@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Orders from "../models/Orders.js";
 
 const updateMe = async (userId, data) => {
     delete data.role;
@@ -107,14 +108,31 @@ const updateMe = async (userId, data) => {
         error.statusCode = 400;
         throw error;
     }
-
     const updatedUser = await User.findByIdAndUpdate(userId, data)
 
     return updatedUser;
 }
 
+const historyMe = async (userId) => {
+     const user = await User.findById(userId)
+    if (!user) {
+        const error = new Error("User dont find.")
+        error.statusCode = 404
+        throw error;
+    }
+
+    const historyUser = await Orders.find({ userId: userId })
+    if (!historyUser) {
+        const error = new Error("History not found.")
+        error.statusCode = 404;
+        throw error;
+    }
+
+    return historyUser;
+}
 
 
 export default {
-    updateMe
+    updateMe,
+    historyMe
 }
