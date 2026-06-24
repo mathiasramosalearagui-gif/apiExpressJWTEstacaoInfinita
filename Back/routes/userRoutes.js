@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.get("/me", authMiddleware, userControllers.getMe)
 router.put("/me", authMiddleware, userControllers.updateMe)
+router.get("/me/history", authMiddleware, userControllers.historyMe)
 
 export default router;
