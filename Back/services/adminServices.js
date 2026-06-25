@@ -126,7 +126,7 @@ const desactiveProduct = async (idProduct) => {
     return verifyProduct
 }
 
-const activeProduct = async (idProduct) => {
+const activeProduct = async (idProduct) => {''
     const verifyProduct = await Products.findById(idProduct)
     if (!verifyProduct) {
         throw new Error("Not find this product.")
