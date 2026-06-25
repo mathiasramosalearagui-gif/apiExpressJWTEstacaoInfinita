@@ -66,10 +66,55 @@ const updateProduct = async (req, res, next) => {
     }
 }
 
+const desactiveProduct = async (req, res, next) => {
+    try {
+        const information = await adminServices.desactiveProduct(req.params.product)
+        res.json(
+            {
+                message: "Product updated successfully:",
+                information
+            }
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
+const activeProduct = async (req, res, next) => {
+    try {
+        const information = await adminServices.activeProduct(req.params.product)
+        res.json(
+            {
+                message: "Product updated successfully:",
+                information
+            }
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
+const deleteProduct = async (req, res, next) => {
+    try {
+        const information = await adminServices.deleteProduct(req.params.product)
+        res.json(
+            {
+                message: "Product deleted successfully:",
+                information
+            }
+        )
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
     listAllUsers,
     relatory,
     listProducts,
     createProduct,
-    updateProduct
+    updateProduct,
+    desactiveProduct,
+    activeProduct,
+    deleteProduct
 }
