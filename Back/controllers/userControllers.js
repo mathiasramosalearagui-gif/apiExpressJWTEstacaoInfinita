@@ -33,9 +33,13 @@ const historyMe = async (req, res, next) => {
         next(error)
     }
 }
+const cartMe = async (req, res, next) => {
+
+}
 
 export default {
     getMe,
     updateMe,
-    historyMe
+    historyMe,
+    cartMe
 }
