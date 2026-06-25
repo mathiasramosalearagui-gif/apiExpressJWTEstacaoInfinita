@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Orders from "../models/Orders.js";
+import Products from "../models/Products.js";
 
 const updateMe = async (userId, data) => {
     delete data.role;
@@ -49,7 +50,7 @@ const updateMe = async (userId, data) => {
         throw error;
     }
 
-       const cpfExists = await User.findOne(
+    const cpfExists = await User.findOne(
         {
             cpf,
             _id: { $ne: userId }
@@ -61,7 +62,7 @@ const updateMe = async (userId, data) => {
         throw error;
     }
 
-       const ageExists = await User.findOne(
+    const ageExists = await User.findOne(
         {
             age,
             _id: { $ne: userId }
@@ -114,7 +115,7 @@ const updateMe = async (userId, data) => {
 }
 
 const historyMe = async (userId) => {
-     const user = await User.findById(userId)
+    const user = await User.findById(userId)
     if (!user) {
         const error = new Error("User dont find.")
         error.statusCode = 404
@@ -131,7 +132,46 @@ const historyMe = async (userId) => {
     return historyUser;
 }
 
-const cartMe = async ()
+const cartMe = async (user, product) => {
+    const userIdExists = await User.findById(user._id)
+    if (!userIdExists) {
+        const error = new Error("user not found.")
+        error.statusCode = 404;
+        throw error;
+    }
+
+    const idProductExists = await Products.findById(product)
+    if (!idProductExists) {
+        const error = new Error("product not found.")
+        error.statusCode = 404;
+        throw error;
+    }
+
+
+    for (let i = 0; i <= user.cart.length; i++) {
+        if (!user.cart[i]) {
+            user.cart[i] = {
+                id: product,
+                nameOfProduct: idProductExists.nameOfProduct,
+                amount: 1
+            }
+            console.log("b")
+            await user.save()
+            break
+        } else if (user.cart[i].id == product) {
+            user.cart[i].amount = user.cart[i].amount + 1
+            console.log(user.cart[i])
+            await user.save()
+            console.log("c")
+            break
+        }
+    }
+    console.log("d")
+    await user.save()
+
+    return user
+
+}
 
 
 export default {

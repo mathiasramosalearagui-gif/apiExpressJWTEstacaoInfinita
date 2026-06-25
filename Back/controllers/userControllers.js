@@ -34,7 +34,12 @@ const historyMe = async (req, res, next) => {
     }
 }
 const cartMe = async (req, res, next) => {
-
+    try {
+        const cartUser = await userService.cartMe(req.user, req.params.product)
+        res.json(cartUser)
+    } catch (error) {
+        next(error)
+    }
 }
 
 export default {
