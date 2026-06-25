@@ -12,5 +12,6 @@ router.put("/products/:product", authMiddlewares, adminControllers.updateProduct
 router.patch("/products/:product/desactive", authMiddlewares, adminControllers.desactiveProduct)
 router.patch("/products/:product/active", authMiddlewares, adminControllers.activeProduct)
 router.delete("/products/:product/deleted", authMiddlewares, adminControllers.deleteProduct)
+router.get("/sales", authMiddlewares, adminControllers.getSales)
 
 export default router
