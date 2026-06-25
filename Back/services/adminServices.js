@@ -153,6 +153,15 @@ const deleteProduct = async (idProduct) => {
     return deleted
 }
 
+const getSales = async () => {
+    const allOrders = await Orders.find()
+    if (!allOrders) {
+        throw new Error("Not found orders.")
+    }
+
+    return allOrders
+}
+
 export default {
     listAllUsers,
     relatory,
@@ -161,5 +170,6 @@ export default {
     updateProduct,
     desactiveProduct,
     activeProduct,
-    deleteProduct
+    deleteProduct,
+    getSales
 }

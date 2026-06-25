@@ -108,6 +108,20 @@ const deleteProduct = async (req, res, next) => {
     }
 }
 
+const getSales = async (req, res, next) => {
+    try {
+        const information = await adminServices.getSales()
+        res.json(
+            {
+                message: "All orders:",
+                information
+            }
+        ) 
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
     listAllUsers,
     relatory,
@@ -116,5 +130,6 @@ export default {
     updateProduct,
     desactiveProduct,
     activeProduct,
-    deleteProduct
+    deleteProduct,
+    getSales
 }
