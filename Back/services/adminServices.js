@@ -113,10 +113,53 @@ const updateProduct = async (idProduct, data) => {
     return updatedProduct
 }
 
+const desactiveProduct = async (idProduct) => {
+    const verifyProduct = await Products.findById(idProduct)
+    if (!verifyProduct) {
+        throw new Error("Not find this product.")
+    }
+
+    verifyProduct.available = false;
+
+    await verifyProduct.save()
+
+    return verifyProduct
+}
+
+const activeProduct = async (idProduct) => {
+    const verifyProduct = await Products.findById(idProduct)
+    if (!verifyProduct) {
+        throw new Error("Not find this product.")
+    }
+
+    verifyProduct.available = true;
+
+    await verifyProduct.save()
+
+    return verifyProduct
+}
+
+const deleteProduct = async (idProduct) => {
+    const verifyProduct = await Products.findById(idProduct)
+    if (!verifyProduct) {
+        throw new Error("Not found this product.")
+    }
+
+    const deleted = await Products.findByIdAndDelete(idProduct)
+    if (!deleted) {
+        throw new Error("Not is possible deleted this product.")
+    }
+
+    return deleted
+}
+
 export default {
     listAllUsers,
     relatory,
     listProducts,
     createProduct,
-    updateProduct
+    updateProduct,
+    desactiveProduct,
+    activeProduct,
+    deleteProduct
 }
