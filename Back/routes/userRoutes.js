@@ -8,5 +8,7 @@ router.get("/me", authMiddleware, userControllers.getMe)
 router.put("/me", authMiddleware, userControllers.updateMe)
 router.get("/me/history", authMiddleware, userControllers.historyMe)
 router.patch("/me/cart/:product" ,authMiddleware, userControllers.cartMe)
+router.get("/me/cart", authMiddleware, userControllers.meCart)
+router.delete("/me/cart/:product", authMiddleware, userControllers.removeProduct)
 
 export default router;
