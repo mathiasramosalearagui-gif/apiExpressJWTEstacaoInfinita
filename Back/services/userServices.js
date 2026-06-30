@@ -155,18 +155,16 @@ const cartMe = async (user, product) => {
                 nameOfProduct: idProductExists.nameOfProduct,
                 amount: 1
             }
-            console.log("b")
             await user.save()
             break
         } else if (user.cart[i].id == product) {
             user.cart[i].amount = user.cart[i].amount + 1
-            console.log(user.cart[i])
+            user.markModified("cart")
             await user.save()
-            console.log("c")
             break
         }
     }
-    console.log("d")
+
     await user.save()
 
     return user
