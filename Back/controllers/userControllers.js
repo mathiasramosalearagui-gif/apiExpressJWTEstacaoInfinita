@@ -57,6 +57,14 @@ const removeProduct = async (req, res, next) => {
         next(error)
     }
 }
+const sale = async (req, res, next) => {
+    try {
+        const saleUser = await userService.sale(req.user._id, req.params.product)
+        res.json(saleUser)
+    } catch (error) {
+        next(error)
+    }
+}
 
 export default {
     getMe,
@@ -64,5 +72,6 @@ export default {
     historyMe,
     cartMe,
     meCart,
-    removeProduct
+    removeProduct,
+    sale
 }
