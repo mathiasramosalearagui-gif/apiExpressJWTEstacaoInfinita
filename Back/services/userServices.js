@@ -208,6 +208,45 @@ const removeProduct = async (userId, product) => {
     return user
 }
 
+const sale = async (userId, productId) => {
+    const user = await User.findById(userId)
+    if (!user) {
+        throw new Error("User dont find")
+    }
+
+    let verifyProduct = false;
+    for (let i = 0; i < user.cart.length; i++) {
+        if (user.cart[i].id === productId) {
+            if (user.cart[i].amount > 1) {
+                user.cart[i].amount = user.cart[i].amount - 1
+            } else {
+                delete user.cart[i]
+            }
+            verifyProduct = true
+            user.markModified("cart")
+            await user.save()
+            break
+
+        }
+    }
+
+    if (!verifyProduct) {
+        throw new Error("Product not find.")
+    }
+    const product = await Products.findById(productId)
+    if (!product) {
+        throw new Error("The data this product not found")
+    }
+
+    product.amount--
+    await product.save()
+
+    return {
+        product,
+        message: "Success!"
+    }
+}
+
 
 
 export default {
@@ -215,5 +254,6 @@ export default {
     historyMe,
     cartMe,
     meCart,
-    removeProduct
+    removeProduct,
+    sale
 }
