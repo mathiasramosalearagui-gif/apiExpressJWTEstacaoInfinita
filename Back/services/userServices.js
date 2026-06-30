@@ -171,9 +171,49 @@ const cartMe = async (user, product) => {
 
 }
 
+const meCart = async (userId) => {
+    const user = await User.findById(userId)
+    if (!user) {
+        const error = new Error("User dont find.")
+        error.statusCode = 404
+        throw error;
+    }
+
+    const product = user.cart
+
+    return product;
+}
+
+const removeProduct = async (userId, product) => {
+    const user = await User.findById(userId)
+    if (!user) {
+        const error = new Error("User dont find.")
+        error.statusCode = 404
+        throw error;
+    }
+
+    for (let i = 0; i < user.cart.length; i++) {
+        if (user.cart[i].id === product) {
+            if (user.cart[i].amount > 1) {
+                user.cart[i].amount = user.cart[i].amount - 1
+            } else {
+                delete user.cart[i]
+            }
+            user.markModified("cart")
+            await user.save()
+            break
+        }
+    }
+
+    return user
+}
+
+
 
 export default {
     updateMe,
     historyMe,
-    cartMe
+    cartMe,
+    meCart,
+    removeProduct
 }

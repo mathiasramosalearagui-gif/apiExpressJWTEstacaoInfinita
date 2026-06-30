@@ -41,10 +41,28 @@ const cartMe = async (req, res, next) => {
         next(error)
     }
 }
+const meCart = async (req, res, next) => {
+    try {
+        const cartUser = await userService.meCart(req.user._id)
+        res.json(cartUser)
+    } catch (error) {
+        next(error)
+    }
+}
+const removeProduct = async (req, res, next) => {
+    try {
+        const cartUser = await userService.removeProduct(req.user._id, req.params.product)
+        res.json(cartUser)
+    } catch (error) {
+        next(error)
+    }
+}
 
 export default {
     getMe,
     updateMe,
     historyMe,
-    cartMe
+    cartMe,
+    meCart,
+    removeProduct
 }
