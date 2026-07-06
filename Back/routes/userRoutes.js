@@ -11,4 +11,5 @@ router.patch("/me/cart/:product" ,authMiddleware, userControllers.cartMe)
 router.get("/me/cart", authMiddleware, userControllers.meCart)
 router.delete("/me/cart/:product", authMiddleware, userControllers.removeProduct)
 router.post("/sales/checkout/:product", authMiddleware, userControllers.sale)
+router.patch("/me/new/password", authMiddleware, userControllers.newPassword)
 export default router;

@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import Orders from "../models/Orders.js";
 import Products from "../models/Products.js";
+import bcrypt from "bcryptjs";
 
 const updateMe = async (userId, data) => {
     delete data.role;
@@ -246,7 +247,8 @@ const sale = async (userId, productId, data) => {
             paymentMethod: paymentMethod,
             idUser: userId, product,
             totalQuantity: product.amount,
-            totalPrice: product.price
+            totalPrice: product.priceOfProduct,
+            products: product
         }
     )
     return {
@@ -255,7 +257,24 @@ const sale = async (userId, productId, data) => {
     }
 }
 
+const newPassword = async (user, data) => {
+    const verifyUser = await User.findById(user._id)
+    if (!verifyUser) {
+        throw new Error("User not find.")
+    }
 
+    const { password } = data
+    const newPassword = await bcrypt.hash(password, 10)
+    if (!newPassword) {
+        throw new Error("Not is possible update the password.")
+    }
+
+    verifyUser.password = newPassword
+
+    await verifyUser.save() 
+
+    return verifyUser
+}
 
 export default {
     updateMe,
@@ -263,5 +282,6 @@ export default {
     cartMe,
     meCart,
     removeProduct,
-    sale
+    sale,
+    newPassword
 }

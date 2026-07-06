@@ -66,6 +66,18 @@ const sale = async (req, res, next) => {
     }
 }
 
+const newPassword = async (req, res, next) => {
+    try {
+        const information = await userService.newPassword(req.user, req.body)
+        res.json({
+            message:"Sucessfully",
+            information
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
     getMe,
     updateMe,
@@ -73,5 +85,6 @@ export default {
     cartMe,
     meCart,
     removeProduct,
-    sale
+    sale,
+    newPassword
 }
