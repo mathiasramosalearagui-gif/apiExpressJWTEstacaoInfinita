@@ -208,7 +208,7 @@ const removeProduct = async (userId, product) => {
     return user
 }
 
-const sale = async (userId, productId) => {
+const sale = async (userId, productId, data) => {
     const user = await User.findById(userId)
     if (!user) {
         throw new Error("User dont find")
@@ -230,9 +230,8 @@ const sale = async (userId, productId) => {
         }
     }
 
-    if (!verifyProduct) {
-        throw new Error("Product not find.")
-    }
+    const { paymentMethod } = data
+
     const product = await Products.findById(productId)
     if (!product) {
         throw new Error("The data this product not found")
@@ -241,8 +240,17 @@ const sale = async (userId, productId) => {
     product.amount--
     await product.save()
 
+    const order = await Orders.create(
+        {
+            status: "Completed",
+            paymentMethod: paymentMethod,
+            idUser: userId, product,
+            totalQuantity: product.amount,
+            totalPrice: product.price
+        }
+    )
     return {
-        product,
+        order,
         message: "Success!"
     }
 }
