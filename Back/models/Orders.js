@@ -28,7 +28,7 @@ const OrdersSchema = new mongoose.Schema(
             required: true,
             trim: true
         },
-        totalprice: {
+        totalPrice: {
             type: Number,
             required: true,
             trim: true
