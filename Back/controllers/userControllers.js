@@ -59,7 +59,7 @@ const removeProduct = async (req, res, next) => {
 }
 const sale = async (req, res, next) => {
     try {
-        const saleUser = await userService.sale(req.user._id, req.params.product)
+        const saleUser = await userService.sale(req.user._id, req.params.product, req.body )
         res.json(saleUser)
     } catch (error) {
         next(error)
