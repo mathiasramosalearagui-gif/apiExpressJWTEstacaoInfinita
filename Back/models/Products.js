@@ -40,7 +40,11 @@ const ProductSchema = new mongoose.Schema(
         main: {
             type: Boolean,
             required: true
-        }
+        },
+        image: { 
+            type: String,
+            trim: true
+        },
     },
     {
         collection: "products",

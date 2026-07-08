@@ -122,6 +122,21 @@ const getSales = async (req, res, next) => {
     }
 }
 
+const image = async (req, res, next) => {
+    try {
+        const information = await adminServices.image(req.body, req.params.product)
+        res.json(
+            {
+                message: "Add image successfully.",
+                information
+            }
+        )
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
     listAllUsers,
     relatory,
@@ -131,5 +146,6 @@ export default {
     desactiveProduct,
     activeProduct,
     deleteProduct,
-    getSales
+    getSales,
+    image 
 }
