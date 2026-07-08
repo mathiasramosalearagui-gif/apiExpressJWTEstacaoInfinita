@@ -78,7 +78,7 @@ const listProducts = async () => {
 }
 
 const createProduct = async (data) => {
-    const { nameOfProduct, priceOfProduct, amount, description, available, category, observations, main } = data
+    const { nameOfProduct, priceOfProduct, amount, description, available, category, observations, main, image } = data
     if (!nameOfProduct || !priceOfProduct || !amount || !description || !available || !category) {
         throw new Error("The name, price, amount, description, available and category are must")
     }
@@ -92,7 +92,8 @@ const createProduct = async (data) => {
             available,
             category,
             observations,
-            main
+            main,
+            image
         }
     )
 }
