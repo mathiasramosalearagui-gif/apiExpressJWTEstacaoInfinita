@@ -109,7 +109,7 @@ const updateProduct = async (idProduct, data) => {
     if (!updatedProduct) {
         throw new Error("Not is possibled updated this product.")
     }
-    
+
     return updatedProduct
 }
 
@@ -126,7 +126,8 @@ const desactiveProduct = async (idProduct) => {
     return verifyProduct
 }
 
-const activeProduct = async (idProduct) => {''
+const activeProduct = async (idProduct) => {
+    ''
     const verifyProduct = await Products.findById(idProduct)
     if (!verifyProduct) {
         throw new Error("Not find this product.")
@@ -162,6 +163,20 @@ const getSales = async () => {
     return allOrders
 }
 
+const image = async (data, productId) => {
+    const { image } = data
+    if (!image) {
+        throw new Error("Not found image.")
+    }
+
+    const information = await Products.findByIdAndUpdate(productId, { image: image })
+    if (!information) {
+        throw new Error("Not is possible update the image.")
+    }
+
+    return image
+}
+
 export default {
     listAllUsers,
     relatory,
@@ -171,5 +186,6 @@ export default {
     desactiveProduct,
     activeProduct,
     deleteProduct,
-    getSales
+    getSales,
+    image
 }
