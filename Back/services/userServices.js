@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import Orders from "../models/Orders.js";
 import Products from "../models/Products.js";
 import bcrypt from "bcryptjs";
+import couponServices from "./couponServices.js";
 
 const updateMe = async (userId, data) => {
     delete data.role;
@@ -231,13 +232,16 @@ const sale = async (userId, productId, data) => {
         }
     }
 
-    const { paymentMethod } = data
+    const { paymentMethod, coupon } = data
 
     const product = await Products.findById(productId)
     if (!product) {
         throw new Error("The data this product not found")
     }
 
+    const totalValue = await couponServices.verifyAndAplicateCoupon(coupon, product.priceOfProduct)
+
+    console.log(totalValue)
     product.amount--
     await product.save()
 
@@ -247,7 +251,7 @@ const sale = async (userId, productId, data) => {
             paymentMethod: paymentMethod,
             idUser: userId, product,
             totalQuantity: product.amount,
-            totalPrice: product.priceOfProduct,
+            totalPrice: totalValue,
             products: product
         }
     )
