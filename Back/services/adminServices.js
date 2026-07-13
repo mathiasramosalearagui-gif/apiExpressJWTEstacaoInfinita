@@ -10,7 +10,7 @@ const listAllUsers = async () => {
 
     return users
 }
-
+ 
 const relatory = async () => {
     let allProducts = await Products.find()
     if (!allProducts) {
