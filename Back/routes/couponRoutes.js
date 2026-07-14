@@ -8,6 +8,7 @@ const routes = express.Router()
 routes.post("/create", authMiddleware, adminMiddleware, couponControllers.createCoupon)
 routes.put("/update/:coupon", authMiddleware, adminMiddleware, couponControllers.updateCoupon)
 routes.patch("/desactive/:coupon", authMiddleware, adminMiddleware, couponControllers.desactiveCoupon)
+routes.patch("/active/:coupon", authMiddleware, adminMiddleware, couponControllers.activeCoupon)
 routes.delete("/delete/:coupon", authMiddleware, adminMiddleware, couponControllers.deleteCoupon)
 routes.get("/list", authMiddleware, adminMiddleware, couponControllers.getCoupons)
 

@@ -42,6 +42,18 @@ const desactiveCoupon = async (req, res, next) => {
     }
 }
 
+const activeCoupon = async (req, res, next) => {
+    try {
+        const information = await couponServices.activeCoupon(req.params.coupon)
+        res.json({
+            message: "Successfully:",
+            information
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 const deleteCoupon = async (req, res, next) => {
     try {
         const information = await couponServices.deleteCoupon(req.params.coupon)
@@ -74,6 +86,7 @@ export default {
     createCoupon,
     updateCoupon,
     desactiveCoupon,
+    activeCoupon,
     deleteCoupon,
     getCoupons
 }

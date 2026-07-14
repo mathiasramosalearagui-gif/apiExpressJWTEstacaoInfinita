@@ -64,53 +64,53 @@ const updateMe = async (userId, data) => {
         throw error;
     }
 
-//    const ageExists = await User.findOne(
-//        {
-//            age,
-//            _id: { $ne: userId }
-//        }
-//    )
-//    if (ageExists) {
-//        const error = new Error("A user with this age already exists.");
-//        error.statusCode = 400;
-//        throw error;
-//    }
-//
-//    const nameExists = await User.findOne(
-//        {
-//            name,
-//            _id: { $ne: userId }
-//        }
-//    )
-//    if (nameExists) {
-//        const error = new Error("A user with this name already exists.");
-//        error.statusCode = 400;
-//        throw error;
-//    }
-//
-//    const telephoneExists = await User.findOne(
-//        {
-//            telephone,
-//            _id: { $ne: userId }
-//        }
-//    )
-//    if (telephoneExists) {
-//        const error = new Error("A user with this telephone already exists.");
-//        error.statusCode = 400;
-//        throw error;
-//    }
-//
-//    const addressExists = await User.findOne(
-//        {
-//            address,
-//            _id: { $ne: userId }
-//        }
-//    )
-//    if (addressExists) {
-//        const error = new Error("A user with this telephone already exists.");
-//        error.statusCode = 400;
-//        throw error;
-//    }
+    //    const ageExists = await User.findOne(
+    //        {
+    //            age,
+    //            _id: { $ne: userId }
+    //        }
+    //    )
+    //    if (ageExists) {
+    //        const error = new Error("A user with this age already exists.");
+    //        error.statusCode = 400;
+    //        throw error;
+    //    }
+    //
+    //    const nameExists = await User.findOne(
+    //        {
+    //            name,
+    //            _id: { $ne: userId }
+    //        }
+    //    )
+    //    if (nameExists) {
+    //        const error = new Error("A user with this name already exists.");
+    //        error.statusCode = 400;
+    //        throw error;
+    //    }
+    //
+    //    const telephoneExists = await User.findOne(
+    //        {
+    //            telephone,
+    //            _id: { $ne: userId }
+    //        }
+    //    )
+    //    if (telephoneExists) {
+    //        const error = new Error("A user with this telephone already exists.");
+    //        error.statusCode = 400;
+    //        throw error;
+    //    }
+    //
+    //    const addressExists = await User.findOne(
+    //        {
+    //            address,
+    //            _id: { $ne: userId }
+    //        }
+    //    )
+    //    if (addressExists) {
+    //        const error = new Error("A user with this telephone already exists.");
+    //        error.statusCode = 400;
+    //        throw error;
+    //    }
     const updatedUser = await User.findByIdAndUpdate(userId, data)
 
     return updatedUser;
@@ -239,9 +239,13 @@ const sale = async (userId, productId, data) => {
         throw new Error("The data this product not found")
     }
 
-    const totalValue = await couponServices.verifyAndAplicateCoupon(coupon, product.priceOfProduct)
+    let totalValue = product.priceOfProduct
 
+    if (coupon) {
+        totalValue = await couponServices.verifyAndAplicateCoupon(coupon, product.priceOfProduct)
+    }
     console.log(totalValue)
+
     product.amount--
     await product.save()
 
@@ -273,7 +277,7 @@ const newPassword = async (user, data) => {
         throw new Error("Not is possible update the password.")
     }
 
-    const newUser = await User.findByIdAndUpdate(user._id, {password: newPassword})
+    const newUser = await User.findByIdAndUpdate(user._id, { password: newPassword })
 
     return newUser
 }
