@@ -27,9 +27,9 @@ const updateCoupon = async (couponId, data) => {
         throw new Error("The coupon is or percentage or deduct.")
     }
 
-    const verifyCoupon = await Coupon.findById(couponId)
+    const verifyCoupon = await Coupon.findOne({ name: couponId })
 
-    const couponUpdated = await Coupon.findByIdAndUpdate(couponId, data)
+    const couponUpdated = await Coupon.findOneAndUpdate({ name: couponId }, data)
     if (!couponUpdated) {
         throw new Error("Not is possible update this coupon.")
     }
