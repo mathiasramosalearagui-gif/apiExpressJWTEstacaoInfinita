@@ -195,7 +195,9 @@ const removeProduct = async (userId, product) => {
     }
 
     for (let i = 0; i < user.cart.length; i++) {
-        if (user.cart[i].id === product) {
+        if (!user.cart[i]) {
+            continue
+        } else if (user.cart[i].id === product) {
             if (user.cart[i].amount > 1) {
                 user.cart[i].amount = user.cart[i].amount - 1
             } else {
@@ -218,7 +220,9 @@ const sale = async (userId, productId, data) => {
 
     let verifyProduct = false;
     for (let i = 0; i < user.cart.length; i++) {
-        if (user.cart[i].id === productId) {
+        if (!user.cart[i]) {
+            continue
+        } else if (user.cart[i].id === productId) {
             if (user.cart[i].amount > 1) {
                 user.cart[i].amount = user.cart[i].amount - 1
             } else {
