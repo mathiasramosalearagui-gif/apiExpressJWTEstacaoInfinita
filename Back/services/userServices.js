@@ -3,6 +3,7 @@ import Orders from "../models/Orders.js";
 import Products from "../models/Products.js";
 import bcrypt from "bcryptjs";
 import couponServices from "./couponServices.js";
+import paymentServices, { criarPreferenciaPagamento } from "./paymentServices.js"
 
 const updateMe = async (userId, data) => {
     delete data.role;
@@ -216,9 +217,22 @@ const sale = async (userId, productId, data) => {
             products: product
         }
     )
+
+    const itenForPagament = [
+        {
+            id: product._id.toString(),
+            nome: product.nameOfProduct,
+            quantidade: 1,
+            preco: totalValue
+        }
+    ]
+
+    const idMercadoPago = await criarPreferenciaPagamento(itenForPagament)
+
     return {
         order,
-        message: "Success!"
+        message: "Success!",
+        idMercadoPago
     }
 }
 
