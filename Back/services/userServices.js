@@ -3,7 +3,7 @@ import Orders from "../models/Orders.js";
 import Products from "../models/Products.js";
 import bcrypt from "bcryptjs";
 import couponServices from "./couponServices.js";
-import paymentServices, { criarPreferenciaPagamento } from "./paymentServices.js"
+import { criarPreferenciaPagamento } from "./paymentServices.js"
 
 const updateMe = async (userId, data) => {
     delete data.role;
